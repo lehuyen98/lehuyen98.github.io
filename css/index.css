@@ -1,0 +1,76 @@
+* {
+    margin: 0xp;
+    padding: 0px;
+}
+
+.text {
+    text-align: center;
+    padding: 10px;
+}
+
+a {
+    text-align: center;
+}
+
+.account {
+    padding: 0px 20px;
+    display: flex;
+    justify-content: space-between;
+    background: aliceblue;
+}
+
+.wraper {
+    ;
+    margin: auto;
+    width: 960px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+    background-color: #2196F3;
+    padding: 10px;
+}
+
+.grid-container>div {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid black;
+    text-align: center;
+    font-size: 30px;
+}
+
+
+/* silebar */
+
+.main_silebar>ul>li {
+    padding: 10px;
+    list-style: none;
+    border-bottom: 1px dotted gray;
+}
+
+#mt_10 {
+    margin-top: -17px;
+}
+
+
+/* footer */
+
+.blockquote {
+    text-align: center;
+}
+
+.bg-success {
+    margin-top: -17px;
+}
+
+
+/* loginTK */
+
+.login {
+    text-align: center;
+    border: 1px solid;
+    width: 500px;
+    margin: auto;
+    padding: 20px;
+}

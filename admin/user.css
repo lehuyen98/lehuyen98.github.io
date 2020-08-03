@@ -1,0 +1,96 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+body{
+    width: 800px;
+    margin: auto;
+    background-color: #f7fcf8;
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+}
+ul{
+    list-style-type: none;
+}
+#top{
+    height: 100px;
+    background: #00cc66;
+    text-align: center;
+    line-height: 100px;
+}
+#menu{
+    margin-top: 10px;
+}
+#menu li{
+    float: left;
+    width: 199px;
+    border-right: 1px solid #fff;
+    text-align: center;
+    line-height: 30px;
+    background: #00cc66;
+}
+
+#wrapper table{
+    border-collapse: collapse;
+    margin-top: 20px;
+    width: 800px;
+    text-align: center;
+}
+#wrapper table tr{
+    border: 1px solid #0c6;
+    line-height: 25px;
+}
+#wrapper table td{
+    border: 1px solid #0c6;
+    color:#666;
+}
+#bottom{
+    height: 40px;
+    background: #00cc66;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+    margin-top: 10px;
+}
+#wrapper2 table{
+    margin: 10px 20px;
+}
+#wrapper2 table tr{
+    line-height: 30px;
+}
+#wrapper2 table input{
+    padding: 2px;
+}
+#trang{
+    height: auto;
+    border: 1px solid #00cc66;
+}
+#bang{
+    
+  
+    margin-top: 10px;
+   
+}#bang1{
+ 
+    border: 1px solid #00cc66;
+    color: blue;
+}
+
+.sm{
+    margin-top: 1px;
+    padding-left: 80%;
+    background-color: #00cc66;
+    height: 40px;
+}
+.sm input[type="submit"]{
+    padding: 4px;
+    margin-top: 10px;
+    border-bottom: 10px;
+    color:white;
+    background-color: red;
+    border-radius: 5px;
+}
