@@ -22,7 +22,6 @@ if (isset($_GET['id'])) {
     }
 </style>
 <?php
-include('account.php');
 include('heade.php'); ?>
 <div class="wraper mt-3">
     <div class="content row">

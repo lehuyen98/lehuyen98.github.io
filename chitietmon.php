@@ -7,6 +7,13 @@ if ($id < 1) {
 }
 $sql = "SELECT * FROM chitietmon WHERE id_ndm ={$id} ";
 $result = select_one($sql);
+include('./admin/checklogin.php');
+session_start();
+// $user = checkLoggedUser();
+$user= isset($_SESSION['user']);
+if($user){
+  $user= $_SESSION['user'];
+}
 
 ?>
 
@@ -24,7 +31,6 @@ $result = select_one($sql);
   }
 </style>
 <?php
-include('account.php');
 include('heade.php'); ?>
 <div class="wraper mt-3">
   <div class="content row">

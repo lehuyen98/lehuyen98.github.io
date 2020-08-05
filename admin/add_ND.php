@@ -1,5 +1,6 @@
 <?php
-require("hea.php");
+include("../lib.php");
+session_start();
 $loi=array();
 $loi['catename']= $loi["catend"]=null;
 $catename= $catend=null;
@@ -19,10 +20,8 @@ if(isset($_POST['ok']))
         }
         if($catename && $catend)
         {
-            require('../lib.php');
             $sql="insert into tintuc (ten_tt,noidung_tt)  values ('$catename','$catend')";
-            mysqli_query($conn,$sql);
-            mysqli_close($conn);
+            $ret = exec_update($sql);
             header("location:list_ND.php");
             exit();
         }

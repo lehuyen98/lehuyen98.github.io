@@ -29,7 +29,7 @@
             <li><a href="list_user.php" >Quản lý thành viên</a></li>
             <li><a href="list_dethi.php" >Quản lý đề thi</a></li>
             <li><a href="list_ND.php" >Quản lý bài viết</a></li>
-            <li><a href="list_comment.php" >Quản lý bình luận</a></li>
+
             
         </ul>
     </div>

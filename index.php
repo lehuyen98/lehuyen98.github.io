@@ -7,7 +7,6 @@ if (isset($_GET["p"])) {
 ?>
 
 <?php
-include('account.php');
 include('heade.php'); ?>
 <div class="wraper mt-3">
     <div class="content row">

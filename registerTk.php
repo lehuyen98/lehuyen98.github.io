@@ -1,87 +1,62 @@
-<?php
-include('account.php');
-include('heade.php');
-?>
-<div class="dangnhap">
-	<h2>Đăng Ký Tài Khoản</h2>
-	<?php
-	require_once("lib.php");
-	if (isset($_POST["register"])) {
-		//lấy thông tin từ các form bằng phương thức POST
-		$username = $_POST["username"];
-		$password_1 = $_POST["password_1"];
-		$password_2 = $_POST["password_2"];
-		$verify = md5(rand(0, 1000));
-		//Kiểm tra điều kiện bắt buộc đối với các field không được bỏ trống
-		if ($password_1 != $password_2) {
-			echo ("Mật khẩu không trùng nhau! ");
-		} else {
-			if ($username == "" || $password_1 == "" || $password_2 == "" ) {
-				echo "Bạn vui lòng nhập đầy đủ thông tin! ";
-			} else {
-				$partten = "/^[A-Za-z0-9_\.]{6,32}@([a-zA-Z0-9]{2,12})(\.[a-zA-Z]{2,12})+$/";
-				if (!preg_match($partten, $subject, $matchs)) {
-					echo  "Mail bạn vừa nhập không đúng định dạng ";
-				} else {
-					// Kiểm tra tài khoản đã tồn tại chưa
-					$sql = "select * from users where username='$username'";
-					$kt = mysqli_query($conn, $sql);
 
-					if (mysqli_num_rows($kt)  > 0) {
-						echo '<script language="javascript">alert("Tài khoản đã tồn tại"); window.location="registerTk.php";</script>';
-						die();
-					} else {
-						$password = md5($password_1);
-						//thực hiện việc lưu trữ dữ liệu vào db
-						$sql = "INSERT INTO users(username, password,lever,verify,trangthai) VAlUES('$username', '$password','1','$verify','0')";
-						// thực thi câu $sql với biến conn lấy từ file connection.php
-						mysqli_query($conn, $sql);
-						echo "Chúc mừng bạn đã đăng ký thành công,vui lòng vào mail để xác nhận!";
-						sendmail($username, $verify);
-					}
-				}
-			}
-		}
-	}
-	?>
-	<form method="Post" action="registerTk.php">
-		<div class="input-group">
-			<Lable style="margin-right: 10px;">Username</Lable><br />
-			<input type="text" name="username">
-		</div>
-		<div class="input-group">
-			<Lable style="margin-right: 10px;">Password</Lable><br />
-			<input type="password" name="password_1">
-		</div>
-		<div class="input-group">
-			<Lable style="margin-right: 10px;">Confirm Password</Lable><br />
-			<input type="password" name="password_2">
-		</div>
-		<div class="input-group btn ">
-			<button type="submit" name="register" class="btn" style="margin: 0px 30%; background-color: cadetblue;">Register</button>
-		</div>
-		<p>
-			Already a member? <a href="loginTk.php">Sign in</a>
-		</p>
+<!DOCTYPE html>
+<html lang="en">
 
-	</form>
-</div>
-<?php
-include('footer.php');
-?>
-<style>
-	.dangnhap {
-		border: 1px solid;
-		width: 30%;
-		margin: auto;
-		text-align: center;
-	}
-
-	.input-group {
-		margin: 5% 10%;
-	}
-
-	label {
-		margin-right: 10px;
-	}
-</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+    <div class="container login-form">
+        <h2 class="login-title">- Please Register -</h2>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form  method="POST" id="action-form">
+                    <div class="input-group login-userinput">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                        <input id="txtUser" type="text" class="form-control" name="hoten" placeholder="Họ Tên">
+                    </div>
+                    <div class="input-group login-userinput">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                        <input id="txtUser" type="text" class="form-control" name="username" placeholder="Username">
+                    </div>
+                    <div class="input-group login-userinput">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                        <input id="txtUser" type="text" class="form-control" name="email" placeholder="Email">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                        <input id="txtPassword" type="password" class="form-control" name="password" placeholder="Password">
+                        <span id="showPassword" class="input-group-btn">
+                            <button class="btn btn-default reveal" type="button"><i class="glyphicon glyphicon-eye-open"></i></button>
+                        </span>
+                    </div>
+                    <input id="btn-dangki" class="btn btn-primary btn-block login-button" type="submit" value="Đăng kí" onclick="checkpass()"></input>
+                    <div class="checkbox login-options">
+                        <a href="login.php" class="login-forgot">Đă có tài khoản, đăng nhập ngay ?</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="./js/main.js"></script>
+    <script>
+        function checkpass() {
+            var pass = $("#txtPassword").val();
+            if (pass.length <= 3) {
+                alert("Mat khau khong duoc it hon 3 ki tu");
+            }
+            else{
+                $("#action-form").attr("action","register_exce.php");
+            }
+        }
+    </script>
+</body>
+</html>

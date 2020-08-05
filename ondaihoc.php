@@ -4,7 +4,6 @@ $sql = "SELECT * FROM monhoc limit 0,9 ";
 $result = select_list($sql);
 ?>
 <?php
-include('account.php');
 include('heade.php'); ?>
 <div class="wraper mt-3">
   <div class="content row">

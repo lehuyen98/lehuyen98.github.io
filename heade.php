@@ -1,3 +1,13 @@
+<?php
+include('./lib.php');
+include('./admin/checklogin.php');
+session_start();
+// $user = checkLoggedUser();
+$user= isset($_SESSION['user']);
+if($user){
+  $user= $_SESSION['user'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,8 +24,21 @@
 </head>
 
 <body>
+  <div class="account">
+    <div class="contect">
+      <a href="https://www.facebook.com/huyenle1107"> <i class="fab fa-facebook-square"></i></a>
+      <a href="https://www.youtube.com/?gl=VN"><i class="fab fa-youtube"></i></a>
 
-
+    </div>
+    <div class="user">
+      <?php if (!$user) { ?>
+        <span><a href="./loginTK.php"><i class="fa fa-user" aria-hidden="true"></i> Đăng nhập</a></span>
+      <?php } ?>
+      <?php if ($user) { ?>
+        <span><a href="./logout.php"><i class="fa fa-user" aria-hidden="true"></i><?php echo $user['username'] ?>,Logout</a></span>
+      <?php } ?>
+    </div>
+  </div>
   <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>

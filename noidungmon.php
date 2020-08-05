@@ -5,7 +5,6 @@ $sql = "SELECT * FROM noidungmon WHERE id_mh = {$id} ";
 $result = select_list($sql);
 ?>
 <?php
-include('account.php');
 include('heade.php'); ?>
 <div class="wraper mt-3">
   <div class="content row">

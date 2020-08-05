@@ -1,86 +1,100 @@
 <?php
-include('account.php');
-include('heade.php')
+   include("lib.php");
+   include("../web/admin/checklogin.php");
+ 
+   $username = isset($_REQUEST["username"]) ? $_REQUEST["username"] : "";
+   $password = isset($_REQUEST["password"]) ? $_REQUEST["password"] : "";
+   
+   $error = '';
+   $checkLogin = 1;
+   $user = 0;
+   if (isset($_REQUEST["username"])){
+       $sql ="select * from users  where username='{$username}'";
+       $user = select_one($sql);
+       //print_r($user);exit();
+       // k co user
+       if (!$user){
+           //thuc hien co user o day
+           $checkLogin = 0;
+           $error = 'Khong ton tai username';
+       }else{
+           //kiem tra pass
+        if ($checkLogin){
+            // echo $password;
+            if(md5($password)!=$user['password'])
+            {
+                $checkLogin = 0;
+                $error = 'Password khong dung';
+            }
+            else
+            {
+				setLoggedUser($user);
+                session_start();
+                $_SESSION['user'] = $user;
+				$_SESSION['lever']= $user['lever'];
+                if($_SESSION['lever']==2)
+                {
+                    header("Location:admin/list_user.php");
+                    exit();
+                }
+               else
+                {
+                     header("Location:index.php");
+                     exit();
+                }
+
+            }     		
+       } 
+    }         
+}                                                                                                                                                                                                                      
 ?>
-<div class="dangnhap">
-	<h2>Đăng Nhập</h2>
-	<?php
-	$loi = array();
-	$username = $password = null;
-	$loi["username"] = $loi["password"] = $loi["login"] = null;
-	if (isset($_POST["login"])) {
-		if (empty($_POST["txtname"])) {
-			$loi["username"] = "*Vui lòng nhập username<br/>";
-		} else {
-			$username = $_POST["txtname"];
-		}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
 
-		if (empty($_POST["txtpass"])) {
-			$loi["password"] = "*Vui lòng nhập password<br/>";
-		} else {
-			$password = $_POST["txtpass"];
-		}
-		if ($username && $password) {
-			require('lib.php');
-			$password_1 = md5($password);
-			$sql = "select * from users where username = '$username' and password = '$password_1' ";
-			$result = exec_select($sql);
-			if (mysqli_num_rows($query) == 1) {
-				$data = mysqli_fetch_assoc($query);
-				if ($data['trangthai'] == 1) {
-					$_SESSION['lever'] = $data['lever'];
-					if ($_SESSION['lever'] == 2) {
-						header('location:admin/admin.php');
-					} else {
-						$_SESSION["username"] = $username;
-						header("location:index.php");
-					}
-				} else {
-					$loi["login"] = "* Tài khoản của bạn chưa kích hoạt, vui lòng kiểm tra email";
-				}
-			} else {
-				$loi["login"] = "*username or password không đúng ";
-			}
-			mysqli_close($conn);
-		}
-	}
-	?>
-	<form method="Post" action="loginTk.php">
-		<div style="color:red;width:250px; height:auto;margin:10px auto;text-align:center;">
-			<?php
-			echo $loi["username"];
-			echo $loi["password"];
-			echo $loi["login"];
-			?>
-		</div>
-		<div class="input-group">
-			<Lable style="margin: auto 0;">Username</Lable>
-			<input type="text" name="txtname">
-		</div>
-		<div class="input-group">
-			<Lable style="margin: auto 0; padding: 3px">Password</Lable>
-			<input type="password" name="txtpass">
-		</div>
-		<div class="input-group">
-			<button type="submit" name="login" class="btn" style="margin: auto; background-color: cadetblue;">Login</button>
-		</div>
-		<p>
-			Not yet a member? <a href="registerTk.php">Sign up</a>
-		</p>
-	</form>
-</div>
-<?php
-include('footer.php') ?>
-<style>
-	.dangnhap {
-		border: 1px solid;
-		width: 30%;
-		margin: auto;
-		padding: 30px;
-		text-align: center;
-	}
+<body>
+    <div class="container login-form">
+        <h2 class="login-title">- Please Login -</h2>
+        <div class="panel panel-default">
+            <div class="panel-body">
+            <?php  if ($error){ ?>
+				<li><?php echo $error ;?></li>
+				<?php } ?>
+                <form method="POST">
+                    <div class="input-group login-userinput">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                        <input id="txtUser" type="text" class="form-control" name="username" placeholder="Username">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                        <input id="txtPassword" type="password" class="form-control" name="password"
+                            placeholder="Password">
+                        <span id="showPassword" class="input-group-btn">
+                            <button class="btn btn-default reveal" type="button"><i
+                                    class="glyphicon glyphicon-eye-open"></i></button>
+                        </span>
+                    </div>
+                    <input class="btn btn-primary btn-block login-button" value="Đăng nhập" type="submit" id="btnlogin">
+                        </input>
+                    <div class="checkbox login-options">
+                        <a href="../index.php">Trở về trang chủ.</a>
+                        <a href="register.php" class="login-forgot">Chưa có tài khoản, đăng kí ?</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
 
-	input {
-		margin: 10px;
-	}
-</style>
+</html>
