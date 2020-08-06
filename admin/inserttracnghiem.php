@@ -14,12 +14,12 @@
         $ret = exec_update($sql);
         $sql2="SELECT id1 from cauhoi1 order by id1 DESC limit 1";
         $ret3 =select_one($sql2);
-        if(!$ret){
-            $row = select_one($ret3);
-			$id=$row["id1"];
+        if($ret3){
+            // $row = select_one($ret3);
+			$id=$ret3["id1"];
             $sql1="INSERT INTO phuongan1(a,b,c,d,id1) VALUES ('$a','$b','$c','$d','$id')";
             $row2 = exec_update($sql1);
-         	if(select_one($sql1)){
+         	if($row2){
                 header("location:list_dethi.php");
 	         }
 	         else{

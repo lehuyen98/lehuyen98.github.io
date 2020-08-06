@@ -88,7 +88,7 @@
                         </input>
                     <div class="checkbox login-options">
                         <a href="../index.php">Trở về trang chủ.</a>
-                        <a href="register.php" class="login-forgot">Chưa có tài khoản, đăng kí ?</a>
+                        <a href="registerTK.php" class="login-forgot">Chưa có tài khoản, đăng kí ?</a>
                     </div>
                 </form>
             </div>
